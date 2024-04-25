@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  .container-fluid.bg-light.py-5.text-center
+    h1.display-4.text-primary.mb-4 Update Task
+
+  .container.py-5
+    form(action='/tasks/' + task._id + '?_method=PUT', method='POST', class='needs-validation', novalidate)
+      .form-group
+        label(for='title', class='fw-bold text-primary') Title:
+        input#title.form-control(type='text', name='title', value=task.title, required, placeholder='Enter title', class='form-control-lg')
+
+      .form-group
+        label(for='description', class='fw-bold text-primary mt-4') Description:
+        textarea#description.form-control(name='description', required, placeholder='Enter description', class='form-control-lg')= task.description
+
+      .form-group
+        label(for='dueDate', class='fw-bold text-primary mt-4') Due Date:
+        input#dueDate.form-control(type='date', name='dueDate', value=task.dueDate.toISOString().substr(0, 10), required, class='form-control-lg')
+
+      .form-group
+        label(for='priority', class='fw-bold text-primary mt-4') Priority:
+        select#priority.form-control(name='priority', required, class='form-control-lg')
+          option(value='Low', selected=task.priority === 'Low') Low
+          option(value='Medium', selected=task.priority === 'Medium') Medium
+          option(value='High', selected=task.priority === 'High') High
+
+      .form-group
+        label(for='completed', class='fw-bold text-primary mt-4') Completed:
+        div.custom-control.custom-checkbox
+          input#completed.custom-control-input(type='checkbox', name='completed', checked=task.completed, class='custom-control-input')
+          label.custom-control-label(for='completed') Mark as completed
+
+      button.btn.btn-primary.btn-block.mt-4(type='submit') Update Task

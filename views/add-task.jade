@@ -1,0 +1,91 @@
+extends layout
+
+block content
+  .container.my-5
+    .row.justify-content-center
+      .col-md-8
+        .card.shadow-lg.border-0.rounded
+          .card-body
+            .text-center.mb-4
+              h1.display-4.text-primary.mb-3(style="color: #5E2BFF;") Add New Task
+              p.lead.text-muted.mb-4 Enter details for your new task below:
+
+            form(id="taskForm", action="/tasks", method="POST", class="needs-validation" novalidate)
+              // Task Title Container
+              .form-group
+                label(for="title" class="text-muted mb-1") Task Title
+                input#title.form-control.form-control-lg(type="text", name="title", placeholder="Enter task title", required)
+                small.form-text.text-muted Enter a title for the task.
+                div.invalid-feedback Please enter a title for the task.
+
+              // Task Description Container
+              .form-group
+                label(for="description" class="text-muted mb-1") Task Description
+                textarea#description.form-control.form-control-lg(name="description", rows="3", placeholder="Enter task description", required)
+                small.form-text.text-muted Enter a description for the task.
+                div.invalid-feedback Please enter a description for the task.
+
+              // Due Date and Time Container
+              .form-row.justify-content-between
+                .form-group.col-md-5
+                  label(for="dueDate" class="text-muted mb-1") Due Date
+                  input#dueDate.form-control.form-control-lg(type="date", name="dueDate", required)
+                  small.form-text.text-muted Select a due date for the task.
+                  div.invalid-feedback Please enter a due date for the task.
+                .form-group.col-md-5
+                  label(for="dueTime" class="text-muted mb-1") Due Time
+                  input#dueTime.form-control.form-control-lg(type="time", name="dueTime", required)
+                  small.form-text.text-muted Select a due time for the task.
+                  div.invalid-feedback Please enter a due time for the task.
+
+              // Priority Container
+              .form-group
+                label(for="priority" class="text-muted mb-1") Priority
+                select#priority.form-control.form-control-lg(name="priority", required)
+                  option(value="") Select Priority
+                  option(value="Low") Low
+                  option(value="Medium") Medium
+                  option(value="High") High
+                small.form-text.text-muted Select the priority of the task.
+                div.invalid-feedback Please select a priority for the task.
+
+              // Progress Container
+              .form-group
+                label(for="progress" class="text-muted mb-1") Progress
+                input#progress.form-control-range(type="range", name="progress", min="0", max="100", value="0")
+                small.form-text.text-muted Track the progress of the task.
+
+              // Submit Button Container
+              .form-group.text-center
+                button.btn.btn-success.btn-lg.mt-4(type="submit" disabled) Add Task
+
+  script.
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('taskForm');
+      const submitButton = form.querySelector('button[type="submit"]');
+
+      form.addEventListener('submit', function(event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          form.querySelectorAll('.is-invalid').forEach(function(input) {
+            const feedback = input.nextElementSibling;
+            feedback.style.display = 'block';
+          });
+        }
+      });
+
+      form.querySelectorAll('input, textarea, select').forEach(function(input) {
+        input.addEventListener('input', function() {
+          input.classList.add('is-validating');
+          if (input.checkValidity()) {
+            input.classList.remove('is-invalid');
+            input.classList.add('is-valid');
+          } else {
+            input.classList.remove('is-valid');
+            input.classList.add('is-invalid');
+          }
+
+          submitButton.disabled = !form.checkValidity();
+        });
+      });
+    });

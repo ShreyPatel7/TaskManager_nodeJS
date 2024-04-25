@@ -1,0 +1,170 @@
+extends layout
+
+block content
+  style.
+    /* Custom CSS */
+
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    /* Jumbotron Styles */
+    .jumbotron {
+      background-color: #343a40;
+      color: #fff;
+      padding: 100px 0;
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+    .jumbotron h1 {
+      font-weight: 700;
+    }
+
+    .jumbotron p {
+      font-size: 18px;
+    }
+
+    /* Card Styles */
+    .card {
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+    }
+
+    .card-body {
+      background-color: #fff;
+      color: #495057;
+      border-radius: 10px;
+      padding: 20px;
+      height: 200px; /* Set a smaller fixed height for the card body */
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .card-text {
+      font-size: 18px;
+    }
+
+    /* Button Styles */
+    .btn {
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+      border-radius: 30px;
+    }
+
+    .btn-primary {
+      background-color: #17a2b8;
+      border-color: #17a2b8;
+    }
+
+    .btn-primary:hover {
+      background-color: #138496;
+      border-color: #138496;
+    }
+
+    /* Section Heading Styles */
+    .section-heading {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+
+    /* Testimonials Styles */
+    .testimonial {
+      background-color: #f8f9fa;
+      padding: 40px;
+      border-radius: 10px;
+      margin-bottom: 40px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease; /* Transition for hover effect */
+    }
+
+    .testimonial:hover {
+      background-color: #e9ecef; /* Hover background color */
+    }
+
+    .testimonial h5 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #343a40; /* Text color */
+    }
+
+    .testimonial p {
+      font-size: 18px;
+      color: #6c757d; /* Text color */
+    }
+
+  .jumbotron.jumbotron-fluid.text-center
+    .container
+      h1.display-4 Welcome to Task Manager
+      p.lead This is a professional task management application built with Node.js, Express, and MongoDB. It helps you stay organized and efficient with features like task creation, updating, and completion tracking.
+
+  .container
+    .row.justify-content-center
+      .col-md-8
+        .card.shadow-lg
+          .card-body.text-center
+            h5.card-title.mb-4 Efficient Task Management
+            p.card-text.mb-4 Manage your tasks effectively with Task Manager. Stay focused, set goals, and achieve more.
+
+  .container.text-center.get-started-btn
+    a.btn.btn-primary.btn-lg(href="/tasks") Get Started
+
+  .container-fluid.bg-light.py-5
+    .container
+      .row.text-center
+        .col-md-4
+          .testimonial
+            h5.card-title.mb-3 User-Friendly Interface
+            p.card-text Task Manager is designed to be easy to use, so you can focus on your tasks without distractions.
+
+        .col-md-4
+          .testimonial
+            h5.card-title.mb-3 Priority Management
+            p.card-text Set priorities for your tasks and stay organized based on importance.
+
+        .col-md-4
+          .testimonial
+            h5.card-title.mb-3 Deadline Tracking
+            p.card-text Track deadlines for your tasks and never miss an important date.
+
+  .container-fluid.bg-light.py-5
+    .container
+      .row.text-center
+        .col-md-6.offset-md-3
+          h2.section-heading.mb-4 Why Choose Task Manager?
+          p.lead.text-muted.mb-5 Task Manager offers a range of features that make it the ideal choice for managing your tasks effectively.
+
+  .container-fluid.bg-light.py-5
+    .container
+      .row.text-center
+        .col-md-4
+          .testimonial
+            h5.card-title.mb-3 Khushdeep_chilotra
+            p.card-text "Task Manager has helped me stay organized and on top of my tasks. I highly recommend it to anyone looking for a simple and effective task management solution."
+
+        .col-md-4
+          .testimonial
+            h5.card-title.mb-3 shreyypatel.07
+            p.card-text "I love how easy it is to use Task Manager. It has everything I need to manage my tasks efficiently, and the interface is intuitive and user-friendly."
+
+        .col-md-4
+          .testimonial
+            h5.card-title.mb-3 harsh_dhakecha
+            p.card-text "Task Manager has made a huge difference in how I manage my tasks. It has helped me prioritize my work and stay organized, which has been a game-changer for me."
+
+  .container.text-center.get-started-btn
+    a.btn.btn-primary.btn-lg(href="/tasks") Get Started

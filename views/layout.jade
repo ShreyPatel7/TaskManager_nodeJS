@@ -1,0 +1,52 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Task Manager
+    link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/stylesheets/style.css")
+    style.
+      
+      .navbar.navbar-dark .navbar-brand {
+        color: white !important;
+      }
+      .navbar-dark .navbar-nav .nav-link {
+        color: white !important;
+        transition: color 0.3s ease;
+      }
+      .navbar-dark .navbar-nav .nav-link:hover {
+        color: #f8f9fa !important;
+      }
+      .navbar-dark .navbar-nav .nav-link.active {
+        text-decoration: underline;
+        color: #f8f9fa !important;
+      }
+  body
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
+      .container
+        a.navbar-brand(href="/") Task Manager
+        button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
+          span.navbar-toggler-icon
+        div.collapse.navbar-collapse#navbarNav
+          ul.navbar-nav.ml-auto
+            li.nav-item
+              a.nav-link(href="/") Home
+            li.nav-item
+              a.nav-link(href="/about") About
+            li.nav-item
+              a.nav-link(href="/tasks") Tasks
+            li.nav-item
+              a.nav-link(href="/tasks/new") Add Task
+            li.nav-item
+              a.nav-link(href="/contact") Contact
+    .container
+      block content
+    footer.footer.bg-dark.text-light.py-3
+      .container
+        p.text-center.mb-0 Copyright © #{new Date().getFullYear()} Task Manager. All Rights Reserved.
+    
+    script(src="https://code.jquery.com/jquery-3.5.1.slim.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js")
+    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js")

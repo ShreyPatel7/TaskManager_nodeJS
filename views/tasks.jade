@@ -1,0 +1,82 @@
+extends layout
+
+block content
+  .container-fluid.bg-light.py-5
+    .container
+      .row.text-center.justify-content-center.align-items-center
+        .col-md-8
+          h1.welcome-text.mb-4 Welcome to Task Manager
+          hr.divider
+          // Additional information
+          .alert.alert-info(role='alert')
+            | This is a Task Manager application. You can manage your tasks here.
+
+    each task in tasks
+      .card.mb-4
+        .card-body
+          h5.card-title= task.title
+          p.card-text= task.description
+          ul.list-unstyled.task-info
+            li.d-flex.align-items-center
+              i.fas.fa-calendar-alt.me-2
+              span Due Date: #{task.dueDate}
+            li.d-flex.align-items-center
+              i.fas.fa-flag.me-2
+              span Priority: #{task.priority}
+            li.d-flex.align-items-center.completed-task
+              i.fas.fa-check-circle.me-2
+              span.completed-text Completed:
+              if task.completed
+                span.text-success Yes
+              else
+                span.text-danger No
+                a(href='#', class='toggle-completed', data-task-id=task._id) Toggle
+          // Display new task information
+          if task.newTask
+            .new-task-info
+              h6 New Task:
+              ul.list-unstyled.task-info
+                li.d-flex.align-items-center
+                  i.fas.fa-calendar-alt.me-2
+                  span Due Date: #{task.newTask.dueDate}
+                li.d-flex.align-items-center
+                  i.fas.fa-flag.me-2
+                  span Priority: #{task.newTask.priority}
+
+          // Action buttons
+          .d-grid.gap-2.buttons-container
+            a.btn.btn-primary.btn-sm(href='/tasks/' + task._id + '/edit') Update
+            form(action='/tasks/' + task._id + '?_method=DELETE', method='POST')
+              input(type='hidden', name='_method', value='DELETE')
+              button.btn.btn-danger.btn-sm(type='submit') Delete
+
+  script.
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('taskForm');
+      const submitButton = form.querySelector('button[type="submit"]');
+
+      form.addEventListener('submit', function(event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          form.querySelectorAll('.is-invalid').forEach(function(input) {
+            const feedback = input.nextElementSibling;
+            feedback.style.display = 'block';
+          });
+        }
+      });
+
+      form.querySelectorAll('input, textarea, select').forEach(function(input) {
+        input.addEventListener('input', function() {
+          if (input.checkValidity()) {
+            input.classList.remove('is-invalid');
+            const feedback = input.nextElementSibling;
+            feedback.style.display = 'none';
+          } else {
+            input.classList.add('is-invalid');
+            const feedback = input.nextElementSibling;
+            feedback.style.display = 'block';
+          }
+          submitButton.disabled = !form.checkValidity();
+        });
+      });
+    });

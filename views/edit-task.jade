@@ -1,0 +1,83 @@
+extends layout
+
+block content
+  .container-fluid.bg-light.py-5.text-center
+    h1.display-4.text-primary.mb-4 Update Task
+
+  .container.py-5
+    .card.shadow-sm.border-0
+      .card-body.bg-white.p-5.rounded
+        h2.text-primary.mb-4 Update Task
+
+        form#updateTaskForm(action=`/tasks/${task._id}?_method=PUT`, method="POST", class="mt-4 needs-validation", novalidate)
+          .row.mb-4.align-items-center
+            label.col-sm-3.col-form-label(for="title" class="fw-bold text-secondary text-sm-end") Title:
+            .col-sm-9
+              input#title.form-control(type="text", name="title", value=task.title, required, style="background-color: #f8f9fa; color: #495057; border-color: #ced4da; border-radius: 8px; padding: 10px; font-size: 16px;")
+              small.form-text.text-muted Enter a title for the task.
+              .invalid-feedback(style="display: none;") Please enter a title.
+
+          .row.mb-4.align-items-center
+            label.col-sm-3.col-form-label(for="description" class="fw-bold text-secondary text-sm-end") Description:
+            .col-sm-9
+              textarea#description.form-control(name="description", rows="5", required, style="background-color: #f8f9fa; color: #495057; border-color: #ced4da; border-radius: 8px; padding: 10px; font-size: 16px;")= task.description
+              small.form-text.text-muted Enter a description for the task.
+              .invalid-feedback(style="display: none;") Please enter a description.
+
+          .row.mb-4.align-items-center
+            label.col-sm-3.col-form-label(for="dueDate" class="fw-bold text-secondary text-sm-end") Due Date:
+            .col-sm-9
+              input#dueDate.form-control(type="date", name="dueDate", value=task.dueDate.toISOString().split('T')[0], required, style="background-color: #f8f9fa; color: #495057; border-color: #ced4da; border-radius: 8px; padding: 10px; font-size: 16px;")
+              small.form-text.text-muted Select a due date for the task.
+              .invalid-feedback(style="display: none;") Please enter a due date.
+
+          .row.mb-4.align-items-center
+            label.col-sm-3.col-form-label(for="priority" class="fw-bold text-secondary text-sm-end") Priority:
+            .col-sm-9
+              select#priority.form-control(name="priority", required, style="background-color: #f8f9fa; color: #495057; border-color: #ced4da; border-radius: 8px; padding: 10px; font-size: 16px;")
+                option(value="Low", selected=task.priority==="Low") Low
+                option(value="Medium", selected=task.priority==="Medium") Medium
+                option(value="High", selected=task.priority==="High") High
+              small.form-text.text-muted Select the priority of the task.
+              .invalid-feedback(style="display: none;") Please select a priority.
+
+          .row.mb-4.align-items-center
+            label.col-sm-3.col-form-label(for="completed" class="fw-bold text-secondary text-sm-end") Completed:
+            .col-sm-9.d-flex.align-items-center
+              input#completed.form-check-input.mx-3(type="checkbox", name="completed", checked=task.completed, style="background-color: #f8f9fa; color: #495057; width: 20px; height: 20px;")
+              small.form-text.text-muted.mb-0(style="margin-left: 50px;") Mark as completed if the task is done.
+
+          .row.justify-content-center
+            .col-sm-9.offset-sm-3
+              button.btn.btn-primary.btn-lg.mt-3.px-5(type="submit" disabled, style="border-radius: 8px; padding: 12px; font-size: 16px; background-color: #007bff; border-color: #007bff;") Update Task
+
+  script.
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('updateTaskForm');
+      const submitButton = form.querySelector('button[type="submit"]');
+
+      form.addEventListener('submit', function(event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          form.querySelectorAll('.is-invalid').forEach(function(input) {
+            const feedback = input.nextElementSibling;
+            feedback.style.display = 'block';
+          });
+        }
+      });
+
+      form.querySelectorAll('input, textarea, select').forEach(function(input) {
+        input.addEventListener('input', function() {
+          if (input.checkValidity()) {
+            input.classList.remove('is-invalid');
+            const feedback = input.nextElementSibling;
+            feedback.style.display = 'none';
+          } else {
+            input.classList.add('is-invalid');
+            const feedback = input.nextElementSibling;
+            feedback.style.display = 'block';
+          }
+          submitButton.disabled = !form.checkValidity();
+        });
+      });
+    });
